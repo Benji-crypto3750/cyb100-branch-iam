@@ -1,0 +1,9 @@
+name: Security Lab Verification
+on:
+  pull_request:
+jobs:
+  verify-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Status
+        run: echo 'Testing outside fork restrictions'
