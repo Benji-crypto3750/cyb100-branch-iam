@@ -37,3 +37,11 @@ jobs:
     steps:
       - name: Deploy Production Artifact
         run: echo "Deploying cryptographically verified package..."
+
+  deploy-to-production:
+    needs: security-audit
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy Production Artifact
+        run: echo "Deploying cryptographically verified package..."
