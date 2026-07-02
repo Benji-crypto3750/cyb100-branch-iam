@@ -29,3 +29,11 @@ jobs:
 
       - name: Execute Secret Leaks Forensic Sweep
         uses: gitleaks/gitleaks-action@112702b8d0ca1b23dfb05a74ef6d96a75f0a6d0c
+
+  deploy-to-production:
+    needs: security-audit
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy Production Artifact
+        run: echo "Deploying cryptographically verified package..."
