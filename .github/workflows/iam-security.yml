@@ -1,0 +1,31 @@
+﻿name: IAM Security Guardrail
+on:
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Baseline
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+        
+      - name: Initialize Python Runtime Environment
+        uses: actions/setup-python@82c7e631bb3cd91054b0692940427a30447f88d1
+        with:
+          python-version: '3.10'
+
+      - name: Run Dependency Audit Scan
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install safety
+            safety check -r requirements.txt
+          else
+            echo "No requirements.txt found, skipping scan."
+          fi
+
+      - name: Execute Secret Leaks Forensic Sweep
+        uses: gitleaks/gitleaks-action@112702b8d0ca1b23dfb05a74ef6d96a75f0a6d0c
