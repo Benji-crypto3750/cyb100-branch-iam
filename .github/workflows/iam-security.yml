@@ -2,11 +2,15 @@
 on:
   pull_request:
     branches: [ main ]
-
+  push:
+    branches: [ main ]
+    
 permissions:
   contents: read
+  actions: read
 
 jobs:
+
   security-audit:
     runs-on: ubuntu-latest
     steps:
